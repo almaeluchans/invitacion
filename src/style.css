@@ -1,0 +1,25 @@
+:root {
+    --font-title: 'Playfair Display', serif;
+    --font-accent: 'Dancing Script', cursive;
+    --font-body: 'Outfit', sans-serif;
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    background: #000;
+    color: #fff;
+    transition: background 0.5s ease;
+}
+
+/* Base styles for the entire app */
+#app {
+    min-height: 100vh;
+}
