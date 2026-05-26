@@ -54,7 +54,7 @@ export default {
   // Location (¿DÓNDE?)
   locationSection: {
     title: '¿DÓNDE?',
-    placeName: "Jano's San Telmo Boutique",
+    placeName: "Eventos Marc", // Name of the venue
     address: 'Av. Pres. Peron 1160, Villa Sarmiento',
     iconUrl: iconLocation,
     btnText: 'COMO LLEGAR',
