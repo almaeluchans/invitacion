@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import GlitterNegro from './proposals/GlitterNegro.vue'
 import GlitterBlanco from './proposals/GlitterBlanco.vue'
 import GlitterNegroCopy from './proposals/GlitterNegro copy.vue'
@@ -14,7 +14,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
 })
 

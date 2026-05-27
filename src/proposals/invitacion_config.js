@@ -113,11 +113,11 @@ export default {
     limitDateText: 'ANTES DEL 4 DE AGOSTO 2026',
     iconUrl: iconRSVP,
     // RSVP Method configuration: 'whatsapp' or 'sheet' or 'both'
-    method: 'whatsapp', 
+    method: 'sheet', 
     // If method is 'whatsapp'
     whatsappNumber: '5491165896096', // Destination phone number with country code
     // If method is 'sheet'
-    googleSheetUrl: 'https://script.google.com/macros/s/AKfycby.../exec',
+    googleSheetUrl: 'https://script.google.com/macros/s/AKfycbyuDDStWJr1Ri6gOyHRu-z-YoxmV0XYutHWTu13Z_yf4srqn0UcbyDpCFr4qyODIVLWeg/exechttps://script.google.com/macros/s/AKfycbyuDDStWJr1Ri6gOyHRu-z-YoxmV0XYutHWTu13Z_yf4srqn0UcbyDpCFr4qyODIVLWeg/exec',
   },
 
   // Te Espero banner

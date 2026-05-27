@@ -288,9 +288,7 @@ onUnmounted(() => {
       aria-label="Toggle Background Music"
     >
       <!-- Pause Icon -->
-      <svg v-if="isMusicPlaying" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
-        <path d="M182.4 112.5c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.8 45.3 0L128 213.3V416c0 17.7 14.3 32 32 32s32-14.3 32-32V112.5zM265.6 112.5c-17.7 0-32 14.3-32 32v303.5c0 17.7 14.3 32 32 32s32-14.3 32-32V213.3l41.4 41.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0z"/>
-      </svg>
+      
       <svg v-if="isMusicPlaying" class="pause-bars-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor">
         <path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/>
       </svg>

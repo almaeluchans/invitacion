@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/invitacion/',
+    base: './',
     plugins: [vue()],
     server: {
         allowedHosts: true
