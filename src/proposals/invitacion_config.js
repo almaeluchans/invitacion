@@ -1,5 +1,7 @@
 // Import local assets
-import bgImage from '../assets/invitacion/zaira-bg.jpg'
+import bgImage from '../assets/invitacion/7.jpg'
+import bgMis15 from '../assets/invitacion/3.jpg'
+import bgImageTeEspero from '../assets/invitacion/6.jpg'
 import iconCalendar from '../assets/invitacion/ffffff-blanco-icono-3.gif'
 import iconLocation from '../assets/invitacion/2e2e2e-gris-oscuro-icono-25.gif'
 import iconCamera from '../assets/invitacion/2e2e2e-gris-oscuro-icono-6.gif'
@@ -66,7 +68,8 @@ export default {
 
   // Middle Banner
   middleBanner: {
-    bgImage: bgImage,
+    bgImage: bgMis15,
+    bgImageTeEspero:bgImageTeEspero,
     titlePrefix: 'MIS',
     titleMain: '15',
     titleSuffix: 'ALMA',
@@ -77,22 +80,22 @@ export default {
     title: 'QUIERO VER TUS FOTOS',
     description: 'PUEDEN SUBIR TODAS SUS FOTOS del evento A MI ÁLBUM COMPARTIDO',
     btnText: 'IR AL ÁLBUM',
-    albumUrl: 'https://latarjetadigital.com.ar/album/', // Editable URL
+    albumUrl: 'https://drive.google.com/drive/folders/1AkLhMxV_8Xewa300LEpTOMb38O6QBIR3?usp=sharing', // Editable URL
     iconUrl: iconCamera,
   },
 
   // Gifts Section (REGALOS)
   giftsSection: {
     title: 'REGALOS',
-    description: 'Nada es más importante que tu presencia, pero si deseas hacerme un presente puedes DEJARLO en LA siguiente cuenta:',
+    description: 'Nada es más importante que tu presencia, pero si deseas hacerme un presente puedes DEJARLO en la siguiente cuenta:',
     btnText: 'VER CUENTA',
     iconUrl: iconGift,
     // Modal gift info details
     accountDetails: {
       ownerName: 'ALMA Perez',
-      bankName: 'Banco Nación',
-      cbu: '0110599540000000000000',
-      alias: 'ALMA.15.REGALOS',
+      bankName: 'Banco Provincia',
+      cbu: '0140094601503605238085',
+      alias: 'REGALOALMA15',
     }
   },
 
@@ -110,14 +113,14 @@ export default {
   // RSVP Form (CONFIRMÁ TU ASISTENCIA)
   rsvpSection: {
     title: 'CONFIRMÁ TU ASISTENCIA',
-    limitDateText: 'ANTES DEL 4 DE AGOSTO 2026',
+    limitDateText: 'ANTES DEL 20 DE AGOSTO 2026',
     iconUrl: iconRSVP,
     // RSVP Method configuration: 'whatsapp' or 'sheet' or 'both'
     method: 'sheet', 
     // If method is 'whatsapp'
     whatsappNumber: '5491165896096', // Destination phone number with country code
     // If method is 'sheet'
-    googleSheetUrl: 'https://script.google.com/macros/s/AKfycbyuDDStWJr1Ri6gOyHRu-z-YoxmV0XYutHWTu13Z_yf4srqn0UcbyDpCFr4qyODIVLWeg/exechttps://script.google.com/macros/s/AKfycbyuDDStWJr1Ri6gOyHRu-z-YoxmV0XYutHWTu13Z_yf4srqn0UcbyDpCFr4qyODIVLWeg/exec',
+    googleSheetUrl: 'https://script.google.com/macros/s/AKfycbyuDDStWJr1Ri6gOyHRu-z-YoxmV0XYutHWTu13Z_yf4srqn0UcbyDpCFr4qyODIVLWeg/exec',
   },
 
   // Te Espero banner

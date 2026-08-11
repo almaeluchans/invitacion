@@ -186,37 +186,50 @@ const handleRSVPSubmit = async () => {
     rsvpDietCustom.value = ''
     isSubmitting.value = false
   } else if (rsvpSection.method === 'sheet') {
-    // Post to Google Sheet URL
     try {
-      const formData = new FormData()
-      formData.append('name', rsvpName.value)
-      formData.append('attending', rsvpAttendance.value)
-      formData.append('guests', rsvpAttendance.value === 'yes' ? rsvpGuests.value.toString() : '0')
-      formData.append('diet', dietFormatted)
-      formData.append('date', new Date().toLocaleString())
+      const params = new URLSearchParams()
+      params.append('name', rsvpName.value)
+      params.append('attending', rsvpAttendance.value)
+      params.append('guests', rsvpAttendance.value === 'yes' ? rsvpGuests.value.toString() : '0')
+      params.append('diet', dietFormatted)
+      params.append('date', new Date().toLocaleString())
 
-      await fetch(rsvpSection.googleSheetUrl, {
+      const response = await fetch(rsvpSection.googleSheetUrl, {
         method: 'POST',
-        body: formData,
-        mode: 'no-cors'
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+        body: params.toString()
       })
 
-      isSuccessStatus.value = true
-      statusTitle.value = rsvpAttendance.value === 'yes' ? '¡Excelente!' : '¡Qué lástima!'
-      statusMessage.value = rsvpAttendance.value === 'yes' 
-        ? 'Tu asistencia ha sido confirmada con éxito. ¡Te esperamos!' 
-        : 'Gracias por avisarnos. Te extrañaremos.'
-      showStatusModal.value = true
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`)
+      }
 
-      rsvpName.value = ''
-      rsvpAttendance.value = 'yes'
-      rsvpGuests.value = 1
-      rsvpDiet.value = 'none'
-      rsvpDietCustom.value = ''
+      const data = await response.json()
+
+      if (data.result === 'success') {
+        isSuccessStatus.value = true
+        statusTitle.value = rsvpAttendance.value === 'yes' ? '¡Excelente!' : '¡Qué lástima!'
+        statusMessage.value = rsvpAttendance.value === 'yes'
+          ? 'Tu asistencia ha sido confirmada con éxito. ¡Te esperamos!'
+          : 'Gracias por avisarnos. Te extrañaremos.'
+        showStatusModal.value = true
+
+        rsvpName.value = ''
+        rsvpAttendance.value = 'yes'
+        rsvpGuests.value = 1
+        rsvpDiet.value = 'none'
+        rsvpDietCustom.value = ''
+      } else {
+        isSuccessStatus.value = false
+        statusTitle.value = '¡Hubo un error!'
+        statusMessage.value = data.message || 'No pudimos registrar tu confirmación. Por favor, intenta nuevamente.'
+        showStatusModal.value = true
+        console.error('Apps Script error:', data.message)
+      }
     } catch (error) {
       isSuccessStatus.value = false
       statusTitle.value = '¡Hubo un error!'
-      statusMessage.value = 'No pudimos registrar tu confirmación en este momento. Por favor, intenta más tarde.'
+      statusMessage.value = 'No pudimos conectarnos con el servidor. Verifica tu conexión e intenta más tarde.'
       showStatusModal.value = true
       console.error(error)
     } finally {
@@ -305,6 +318,7 @@ onUnmounted(() => {
       <header 
         class="hero-section" 
         :style="{ backgroundImage: `url(${hero.bgImage})` }"
+        style="background-position: 50% 50%;height: 500px;"
       >
         <div class="hero-overlay" :style="{ opacity: theme.heroOverlayOpacity }"></div>
         <div class="hero-content">
@@ -393,26 +407,7 @@ onUnmounted(() => {
         </div>
       </section>
 
-      <!-- Section 6: QUIERO VER TUS FOTOS (White Background) -->
-      <section class="info-section white-bg" :style="{ backgroundColor: theme.bgMain }">
-        <div class="section-container">
-          <div class="info-card">
-            <div class="info-icon-wrap">
-              <img :src="albumSection.iconUrl" alt="Icono Cámara" width="70" height="70" loading="lazy">
-            </div>
-            <h4 class="info-title" :style="{ color: theme.colorTextMain }">{{ albumSection.title }}</h4>
-            <p class="info-description uppercase" :style="{ color: theme.colorTextMain }">{{ albumSection.description }}</p>
-            <a 
-              :href="albumSection.albumUrl" 
-              target="_blank" 
-              class="action-btn-filled dark-bg"
-              :style="{ backgroundColor: theme.bgDark, color: theme.colorTextLight }"
-            >
-              {{ albumSection.btnText }}
-            </a>
-          </div>
-        </div>
-      </section>
+      
 
       <!-- Section 7: REGALOS (Dark Background) -->
       <section class="info-section dark-bg" :style="{ backgroundColor: theme.bgDark }">
@@ -430,6 +425,26 @@ onUnmounted(() => {
             >
               {{ giftsSection.btnText }}
             </button>
+          </div>
+        </div>
+      </section>
+      <!-- Section 6: QUIERO VER TUS FOTOS (White Background) -->
+      <section class="info-section white-bg" :style="{ backgroundColor: theme.bgMain }">
+        <div class="section-container">
+          <div class="info-card">
+            <div class="info-icon-wrap">
+              <img :src="albumSection.iconUrl" alt="Icono Cámara" width="70" height="70" loading="lazy">
+            </div>
+            <h4 class="info-title" :style="{ color: theme.colorTextMain }">{{ albumSection.title }}</h4>
+            <p class="info-description uppercase" :style="{ color: theme.colorTextMain }">{{ albumSection.description }}</p>
+            <a 
+              :href="albumSection.albumUrl" 
+              target="_blank" 
+              class="action-btn-filled dark-bg"
+              :style="{ backgroundColor: theme.bgDark, color: theme.colorTextLight }"
+            >
+              {{ albumSection.btnText }}
+            </a>
           </div>
         </div>
       </section>
@@ -485,7 +500,7 @@ onUnmounted(() => {
               >
             </div>
             
-            <div class="form-row-grid">
+            <!--<div class="form-row-grid">-->
               <div class="form-group">
                 <label :style="{ color: theme.colorTextLight }">¿Asistirás?</label>
                 <select 
@@ -498,7 +513,7 @@ onUnmounted(() => {
                 </select>
               </div>
               
-              <div class="form-group" v-if="rsvpAttendance === 'yes'">
+              <div class="form-group" v-if="rsvpAttendance === 'yes'" style="display:none">
                 <label :style="{ color: theme.colorTextLight }">Acompañantes</label>
                 <input 
                   v-model="rsvpGuests" 
@@ -509,7 +524,7 @@ onUnmounted(() => {
                   :style="{ color: theme.colorTextLight, borderColor: theme.colorTextLight }"
                 >
               </div>
-            </div>
+            <!--</div>-->
 
             <!-- Dietary Restrictions -->
             <div class="form-group" v-if="rsvpAttendance === 'yes'">
@@ -554,11 +569,14 @@ onUnmounted(() => {
       <!-- Section 11: TE ESPERO Banner (bg image, scrolling overlay) -->
       <section 
         class="banner-section height-small" 
-        :style="{ backgroundImage: `url(${middleBanner.bgImage})` }"
+        :style="{ backgroundImage: `url(${middleBanner.bgImageTeEspero})` }"
+        style=" height: 550px;
+
+  background-position: 50% 40%;"
       >
         <div class="banner-overlay" :style="{ opacity: theme.bannerOverlayOpacity }"></div>
         <div class="banner-content">
-          <h3>{{ config.teEsperoText }}</h3>
+          <h3 style="margin-top: -114%;">{{ config.teEsperoText }}</h3>
         </div>
       </section>
 
@@ -636,7 +654,7 @@ onUnmounted(() => {
             <h4 class="info-title white-text">{{ giftsSection.title }}</h4>
             
             <div class="bank-details-modal">
-              <p><strong>Titular:</strong> {{ giftsSection.accountDetails.ownerName }}</p>
+              <!--<p><strong>Titular:</strong> {{ giftsSection.accountDetails.ownerName }}</p>-->
               <p><strong>Banco:</strong> {{ giftsSection.accountDetails.bankName }}</p>
               
               <div class="copyable-field-row">
@@ -1060,7 +1078,7 @@ onUnmounted(() => {
 /* Middle Banner Sections */
 .banner-section {
   width: 100%;
-  height: 350px;
+  height: 850px;
   background-size: cover;
   background-position: 50% 50%;
   background-attachment: scroll;

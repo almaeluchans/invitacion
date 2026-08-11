@@ -1,7 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import GlitterNegro from './proposals/GlitterNegro.vue'
-import GlitterBlanco from './proposals/GlitterBlanco.vue'
-import GlitterNegroCopy from './proposals/GlitterNegro copy.vue'
+ 
 import Invitacion from './proposals/Invitacion.vue'
 
 const routes = [
